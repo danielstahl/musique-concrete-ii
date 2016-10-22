@@ -175,6 +175,16 @@ SynthDef(\lowPassReplace, {
         ReplaceOut.ar(in, filt);
 }).add;
 
+SynthDef(\sine, {
+	arg dur, freqBus, ampBus, out = 0;
+	var freq, amp;
+	Line.kr(dur:dur, doneAction:2);
+	freq = In.kr(freqBus);
+	amp = In.kr(ampBus);
+
+	Out.ar(out, SinOsc.ar(freq) * amp);
+}).add;
+
 SynthDef(\playStereoSound, {
 	arg out = 0, bufnum = 0, scale = 1.0, amp = 1.0, startPos = 0;
 	var startFrame;

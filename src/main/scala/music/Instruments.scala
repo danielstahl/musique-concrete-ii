@@ -426,6 +426,24 @@ class LowpassReplaceInstrumentBuilder extends AbstractInstrumentBuilder with Dur
       freqBus.buildBus()
 }
 
+class SineInstrumentBuilder extends AbstractInstrumentBuilder with DurBuilder with OutputBuilder {
+  type SelfType = SineInstrumentBuilder
+
+  def self(): SelfType = this
+
+  val instrumentName: String = "sine"
+
+  val ampBus = ControlArgumentBuilder[SineInstrumentBuilder](this, "ampBus")
+  val freqBus = ControlArgumentBuilder[SineInstrumentBuilder](this, "freqBus")
+
+  override def build(): Seq[Object] =
+    super.build() ++
+      buildOut() ++
+      buildDur() ++
+      ampBus.buildBus() ++
+      freqBus.buildBus()
+}
+
 abstract class CommonPlayStereoSoundInstrumentBuilder extends AbstractInstrumentBuilder with OutputBuilder {
   override type SelfType = CommonPlayStereoSoundInstrumentBuilder
 
